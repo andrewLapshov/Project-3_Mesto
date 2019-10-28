@@ -1,0 +1,17 @@
+.button.user-info__edit {
+    width: 38px;
+    height: 18px;
+    font-size: 12px;
+    line-height: 1.25;
+    margin-top: 24px;
+}
+
+.user-info__edit:hover {
+    color: black;
+    background-color: white;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+}
