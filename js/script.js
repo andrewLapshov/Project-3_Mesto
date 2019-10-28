@@ -2,26 +2,21 @@ const rootContainer = document.querySelector('.root');
 
 const popup = document.querySelector('.popup');
 
-const addFormButton = document.querySelector('.popup__button_new');
-const editFormButton = document.querySelector('.popup__button_edit');
-const userName = document.querySelector('.user-info__name');
-const userJob = document.querySelector('.user-info__job');
-
-const newCardForm = document.forms.new;
-const cardNameInput = newCardForm.elements.name;
-const linkInput = newCardForm.elements.link;
-const editForm = document.forms.edit;
-const usernameInput = editForm.elements.username;
-const jobInput = editForm.elements.job;
-
 const cardList = new CardList(
   document.querySelector('.places-list'),
   window.initialCards,
 );
-
 const popupContainer = new Popup(popup);
+const validate = new Validation();
 
-function inputHandler(event) {
+rootContainer.addEventListener(
+  'click',
+  popupContainer.open.bind(popupContainer),
+);
+
+// rootContainer.addEventListener('input', validate.validateHandler);
+
+/* function inputHandler(event) {
   if (event.target.validity.valueMissing) {
     event.target.nextElementSibling.textContent =
       window.validationErrors.noValueError;
@@ -55,11 +50,4 @@ function validateHandler(event) {
     popupForm.elements.submit.setAttribute('disabled', true);
     popupForm.elements.submit.classList.add('popup__button_disabled');
   }
-}
-
-rootContainer.addEventListener(
-  'click',
-  popupContainer.open.bind(popupContainer),
-);
-
-rootContainer.addEventListener('input', validateHandler);
+} */
