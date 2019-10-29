@@ -10,6 +10,9 @@ class Popup {
 
     this.usernameInput = document.forms.edit.elements.username;
     this.jobInput = document.forms.edit.elements.job;
+
+    this.close = this.close.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
   open(e) {
@@ -44,6 +47,7 @@ class Popup {
 
   render(e) {
     const editFormButton = document.querySelector('.popup__button_edit');
+
     this.removeListeners();
     e.target
       .closest('.popup__content')
@@ -57,27 +61,8 @@ class Popup {
     });
   }
 
-  addListeners() {
-    this.container.addEventListener('click', this.close.bind(this));
-    this.container.addEventListener('submit', this.submit.bind(this));
-    this.container.addEventListener(
-      'input',
-      validate.validateHandler.bind(validate),
-    );
-  }
-
-  removeListeners() {
-    this.container.removeEventListener('click', this.close.bind(this));
-    this.container.removeEventListener('submit', this.submit.bind(this));
-    this.container.removeEventListener(
-      'input',
-      validate.validateHandler.bind(validate),
-    );
-  }
-
   submit(e) {
     e.preventDefault();
-
     const newCardForm = document.forms.new;
 
     if (e.target.name === 'edit') {
@@ -85,11 +70,26 @@ class Popup {
       this.infoJob.textContent = this.jobInput.value;
       this.render(e);
     } else {
-      cardList.addCard(
+      window.cardList.addCard(
         newCardForm.elements.name.value,
         newCardForm.elements.link.value,
       );
       this.render(e);
     }
+  }
+
+  addListeners() {
+    this.container.addEventListener('click', this.close);
+    this.container.addEventListener('submit', this.submit);
+    this.container.addEventListener('input', window.validate.validateHandler);
+  }
+
+  removeListeners() {
+    this.container.removeEventListener('click', this.close);
+    this.container.removeEventListener('submit', this.submit);
+    this.container.removeEventListener(
+      'input',
+      window.validate.validateHandler,
+    );
   }
 }

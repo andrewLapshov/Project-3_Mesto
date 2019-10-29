@@ -1,5 +1,8 @@
-/* eslint-disable class-methods-use-this */
 class Validation {
+  constructor() {
+    this.validateHandler = this.validateHandler.bind(this);
+  }
+
   inputHandler(event) {
     if (event.target.validity.valueMissing) {
       event.target.nextElementSibling.textContent =
