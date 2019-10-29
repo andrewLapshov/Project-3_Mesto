@@ -10,19 +10,6 @@ class Card {
       .addEventListener('click', this.remove);
   }
 
-  /*   create(name, link) {
-    const cardContainer = document
-      .querySelector('.place-card-template')
-      .content.cloneNode(true);
-
-    cardContainer.querySelector(
-      '.place-card__image',
-    ).style.backgroundImage = `url(${link})`;
-    cardContainer.querySelector('.place-card__name').textContent = name;
-
-    return cardContainer;
-  } */
-
   like(e) {
     e.target.classList.toggle('place-card__like-icon_liked');
   }
