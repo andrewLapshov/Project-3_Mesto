@@ -4,23 +4,33 @@ class Popup {
     this.edit = document.querySelector('.popup__content_edit');
     this.newCard = document.querySelector('.popup__content_new-card');
     this.image = document.querySelector('.popup__content_type_image');
-    this.container.addEventListener('click', this.close.bind(this));
-    this.container.addEventListener('submit', this.submit.bind(this));
+
+    this.infoName = document.querySelector('.user-info__name');
+    this.infoJob = document.querySelector('.user-info__job');
+
+    this.usernameInput = document.forms.edit.elements.username;
+    this.jobInput = document.forms.edit.elements.job;
+
+    this.close = this.close.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
   open(e) {
     if (e.target.classList.contains('button')) {
       this.container.classList.add('popup_is-opened');
+      this.addListeners();
 
       if (e.target.classList.contains('user-info__edit')) {
         this.edit.classList.add('popup__content_is-opened');
-        usernameInput.value = userName.textContent;
-        jobInput.value = userJob.textContent;
+
+        this.usernameInput.value = this.infoName.textContent;
+        this.jobInput.value = this.infoJob.textContent;
       } else if (e.target.classList.contains('user-info__button')) {
         this.newCard.classList.add('popup__content_is-opened');
       }
     } else if (e.target.classList.contains('place-card__image')) {
       this.container.classList.add('popup_is-opened');
+      this.addListeners();
 
       document
         .querySelector('.popup__image')
@@ -36,11 +46,14 @@ class Popup {
   }
 
   render(e) {
+    const editFormButton = document.querySelector('.popup__button_edit');
+
+    this.removeListeners();
     e.target
       .closest('.popup__content')
       .classList.remove('popup__content_is-opened');
     this.container.classList.remove('popup_is-opened');
-    this.removeListeners();
+
     editFormButton.removeAttribute('disabled');
     editFormButton.classList.remove('popup__button_disabled');
     this.edit.querySelectorAll('.popup__error').forEach(item => {
@@ -48,21 +61,35 @@ class Popup {
     });
   }
 
-  removeListeners() {
-    this.container.removeEventListener('click', this.close.bind(this));
-    this.container.removeEventListener('submit', this.submit.bind(this));
-  }
-
   submit(e) {
     e.preventDefault();
+    const newCardForm = document.forms.new;
 
     if (e.target.name === 'edit') {
-      userName.textContent = usernameInput.value;
-      userJob.textContent = jobInput.value;
+      this.infoName.textContent = this.usernameInput.value;
+      this.infoJob.textContent = this.jobInput.value;
       this.render(e);
     } else {
-      cardList.addCard(cardNameInput.value, linkInput.value);
+      window.cardList.addCard(
+        newCardForm.elements.name.value,
+        newCardForm.elements.link.value,
+      );
       this.render(e);
     }
+  }
+
+  addListeners() {
+    this.container.addEventListener('click', this.close);
+    this.container.addEventListener('submit', this.submit);
+    this.container.addEventListener('input', window.validate.validateHandler);
+  }
+
+  removeListeners() {
+    this.container.removeEventListener('click', this.close);
+    this.container.removeEventListener('submit', this.submit);
+    this.container.removeEventListener(
+      'input',
+      window.validate.validateHandler,
+    );
   }
 }

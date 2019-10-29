@@ -1,13 +1,13 @@
-/* eslint-disable class-methods-use-this */
 class Card {
   constructor(name, link) {
     this.cardElement = this.create(name, link);
+    this.remove = this.remove.bind(this);
     this.cardElement
       .querySelector('.place-card__like-icon')
       .addEventListener('click', this.like);
     this.cardElement
       .querySelector('.place-card__delete-icon')
-      .addEventListener('click', this.remove.bind(this));
+      .addEventListener('click', this.remove);
   }
 
   /*   create(name, link) {
