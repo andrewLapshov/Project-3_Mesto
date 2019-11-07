@@ -2,7 +2,7 @@ class CardList {
   constructor(container, arr) {
     this.container = container;
     this.arr = arr;
-    this.render();
+    // this.render();
   }
 
   addCard(name, link) {

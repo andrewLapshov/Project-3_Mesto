@@ -70,7 +70,7 @@ class Popup {
       this.infoJob.textContent = this.jobInput.value;
       this.render(e);
     } else {
-      window.cardList.addCard(
+      api.addCard(
         newCardForm.elements.name.value,
         newCardForm.elements.link.value,
       );
