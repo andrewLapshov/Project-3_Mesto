@@ -62,17 +62,17 @@ class Popup {
   }
 
   submit(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const newCardForm = document.forms.new;
 
     if (e.target.name === 'edit') {
-      this.infoName.textContent = this.usernameInput.value;
-      this.infoJob.textContent = this.jobInput.value;
+      api.editUserInfo(this.usernameInput.value, this.jobInput.value, e)
       this.render(e);
     } else {
       api.addCard(
         newCardForm.elements.name.value,
         newCardForm.elements.link.value,
+        e
       );
       this.render(e);
     }

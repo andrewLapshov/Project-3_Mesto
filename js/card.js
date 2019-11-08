@@ -1,38 +1,51 @@
 class Card {
-  constructor(name, link) {
-    this.cardElement = this.create(name, link);
+  constructor(result, isMyCard) {
+    this.cardElement = this.create(result, isMyCard);
     this.remove = this.remove.bind(this);
-    this.cardElement
-      .querySelector('.place-card__like-icon')
+    this.cardId = '';
+    // this.like = this.like.bind(this);
+    // this.cardElement
+    //   .querySelector('.place-card__like-icon')
+    //   .addEventListener('click', this.like);
+    // this.cardElement
+    //   .querySelector('.place-card__delete-icon')
+    //   .addEventListener('click', this.remove);
+    cardList.container
       .addEventListener('click', this.like);
-    this.cardElement
-      .querySelector('.place-card__delete-icon')
+    cardList.container
       .addEventListener('click', this.remove);
   }
 
   like(e) {
-    e.target.classList.toggle('place-card__like-icon_liked');
+    if (e.target.classList.contains('place-card__like-icon')) {
+      e.target.classList.toggle('place-card__like-icon_liked');
+    }
   }
 
   remove() {
-    this.cardElement.remove();
-    this.cardElement
-      .querySelector('.place-card__like-icon')
-      .removeEventListener('click', this.like);
-    this.cardElement
-      .querySelector('.place-card__delete-icon')
-      .removeEventListener('click', this.remove);
+    if (e.target.classList.contains('place-card__delete-icon')) {
+      if (window.confirm('Вы действительно хотите удалить эту карточку?')) {
+        api.deleteCard(this.cardId.bind(this));
+      }
+
+      this.cardElement.remove();
+    }
+    // this.cardElement
+    //   .querySelector('.place-card__like-icon')
+    //   .removeEventListener('click', this.like);
+    // this.cardElement
+    //   .querySelector('.place-card__delete-icon')
+    //   .removeEventListener('click', this.remove);
   }
 
-  create(name, link) {
+  create(result, isMyCard) {
     const cardContainer = document.createElement('div');
     cardContainer.classList.add('place-card');
 
     const cardImage = document.createElement('div');
     cardImage.classList.add('place-card__image');
 
-    const deleteButton = document.createElement('button');
-    deleteButton.classList.add('place-card__delete-icon');
+
 
     const cardDescription = document.createElement('div');
     cardDescription.classList.add('place-card__description');
@@ -43,14 +56,25 @@ class Card {
     const likeButton = document.createElement('button');
     likeButton.classList.add('place-card__like-icon');
 
+    const likesCounter = document.createElement('span');
+    likesCounter.classList.add('place-card__like-counter');
+
+    if (isMyCard) {
+      const deleteButton = document.createElement('button');
+      deleteButton.classList.add('place-card__delete-icon');
+      cardImage.appendChild(deleteButton);
+    }
+
     cardContainer.appendChild(cardImage);
-    cardImage.appendChild(deleteButton);
     cardContainer.appendChild(cardDescription);
     cardDescription.appendChild(cardName);
     cardDescription.appendChild(likeButton);
+    cardDescription.appendChild(likesCounter);
 
-    cardImage.style.backgroundImage = `url(${link})`;
-    cardName.textContent = name;
+    cardImage.style.backgroundImage = `url(${result.link})`;
+    cardName.textContent = result.name;
+    this.cardId = result._id
+    likesCounter.textContent = likes.length;
 
     return cardContainer;
   }
