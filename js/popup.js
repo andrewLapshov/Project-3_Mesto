@@ -4,9 +4,11 @@ class Popup {
     this.edit = document.querySelector('.popup__content_edit');
     this.newCard = document.querySelector('.popup__content_new-card');
     this.image = document.querySelector('.popup__content_type_image');
+    this.avatar = document.querySelector('.popup__content_avatar');
 
     this.infoName = document.querySelector('.user-info__name');
     this.infoJob = document.querySelector('.user-info__job');
+    this.infoAvatar = document.querySelector('.user-info__photo');
 
     this.usernameInput = document.forms.edit.elements.username;
     this.jobInput = document.forms.edit.elements.job;
@@ -36,6 +38,10 @@ class Popup {
         .querySelector('.popup__image')
         .setAttribute('src', e.target.style.backgroundImage.slice(5, -2));
       this.image.classList.add('popup__content_is-opened');
+    } else if (e.target.classList.contains('user-info__photo')) {
+      this.container.classList.add('popup_is-opened');
+      this.addListeners();
+      this.avatar.classList.add('popup__content_is-opened');
     }
   }
 
@@ -62,19 +68,19 @@ class Popup {
   }
 
   submit(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const newCardForm = document.forms.new;
 
     if (e.target.name === 'edit') {
-      api.editUserInfo(this.usernameInput.value, this.jobInput.value, e)
-      this.render(e);
-    } else {
+      api.editUserInfo(this.usernameInput.value, this.jobInput.value, e);
+    } else if (e.target.name === 'new') {
       api.addCard(
         newCardForm.elements.name.value,
         newCardForm.elements.link.value,
-        e
+        e,
       );
-      this.render(e);
+    } else if (e.target.name === 'avatar') {
+      api.editUserAvatar(document.forms.avatar.elements.link.value, e);
     }
   }
 

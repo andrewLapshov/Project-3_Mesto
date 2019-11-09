@@ -1,19 +1,13 @@
+/* eslint-disable class-methods-use-this */
 class Card {
   constructor(result, isMyCard) {
+    this.cardId = '';
     this.cardElement = this.create(result, isMyCard);
     this.remove = this.remove.bind(this);
-    this.cardId = '';
-    // this.like = this.like.bind(this);
-    // this.cardElement
-    //   .querySelector('.place-card__like-icon')
-    //   .addEventListener('click', this.like);
-    // this.cardElement
-    //   .querySelector('.place-card__delete-icon')
-    //   .addEventListener('click', this.remove);
-    cardList.container
+
+    this.cardElement
+      .querySelector('.place-card__like-icon')
       .addEventListener('click', this.like);
-    cardList.container
-      .addEventListener('click', this.remove);
   }
 
   like(e) {
@@ -22,20 +16,19 @@ class Card {
     }
   }
 
-  remove() {
+  remove(e) {
     if (e.target.classList.contains('place-card__delete-icon')) {
       if (window.confirm('Вы действительно хотите удалить эту карточку?')) {
-        api.deleteCard(this.cardId.bind(this));
+        api.deleteCard(this.cardId);
+        this.cardElement.remove();
+        this.cardElement
+          .querySelector('.place-card__like-icon')
+          .removeEventListener('click', this.like);
+        this.cardElement
+          .querySelector('.place-card__delete-icon')
+          .removeEventListener('click', this.remove);
       }
-
-      this.cardElement.remove();
     }
-    // this.cardElement
-    //   .querySelector('.place-card__like-icon')
-    //   .removeEventListener('click', this.like);
-    // this.cardElement
-    //   .querySelector('.place-card__delete-icon')
-    //   .removeEventListener('click', this.remove);
   }
 
   create(result, isMyCard) {
@@ -44,8 +37,6 @@ class Card {
 
     const cardImage = document.createElement('div');
     cardImage.classList.add('place-card__image');
-
-
 
     const cardDescription = document.createElement('div');
     cardDescription.classList.add('place-card__description');
@@ -59,10 +50,11 @@ class Card {
     const likesCounter = document.createElement('span');
     likesCounter.classList.add('place-card__like-counter');
 
-    if (isMyCard) {
+    if (result.owner._id === 'a4469f107fd1710abffb5622' || isMyCard) {
       const deleteButton = document.createElement('button');
       deleteButton.classList.add('place-card__delete-icon');
       cardImage.appendChild(deleteButton);
+      deleteButton.addEventListener('click', this.remove.bind(this));
     }
 
     cardContainer.appendChild(cardImage);
@@ -73,8 +65,8 @@ class Card {
 
     cardImage.style.backgroundImage = `url(${result.link})`;
     cardName.textContent = result.name;
-    this.cardId = result._id
-    likesCounter.textContent = likes.length;
+    this.cardId = result._id;
+    likesCounter.textContent = result.likes.length;
 
     return cardContainer;
   }

@@ -21,6 +21,7 @@
   window.api = api;
   window.cardList = cardList;
   window.validate = validate;
+  window.popupContainer = popupContainer;
 
   rootContainer.addEventListener(
     'click',

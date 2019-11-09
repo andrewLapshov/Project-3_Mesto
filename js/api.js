@@ -26,7 +26,7 @@ class Api {
   }
 
   addCard(name, link, e) {
-    e.target.textContent = 'Загрузка...';
+    e.target.elements.submit.textContent = 'Загрузка...';
     fetch(`${this.baseUrl}/cards`, {
       method: 'POST',
       body: JSON.stringify({
@@ -48,8 +48,9 @@ class Api {
         console.log(err);
       })
       .finally(() => {
-        e.target.textContent = '+';
-      })
+        e.target.elements.submit.textContent = '+';
+        popupContainer.render(e);
+      });
   }
 
   deleteCard(cardId) {
@@ -68,13 +69,6 @@ class Api {
       });
   }
 
-
-  updateUserInfo(result) {
-    document.querySelector('.user-info__photo').style.backgroundImage = `url(${result.avatar})`;
-    document.querySelector('.user-info__name').textContent = result.name;
-    document.querySelector('.user-info__job').textContent = result.about;
-  }
-
   getUserInfo() {
     fetch(`${this.baseUrl}/users/me`, {
       headers: this.headers,
@@ -86,7 +80,11 @@ class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
       })
       .then(result => {
-        updateUserInfo(result);
+        document.querySelector(
+          '.user-info__photo',
+        ).style.backgroundImage = `url(${result.avatar})`;
+        document.querySelector('.user-info__name').textContent = result.name;
+        document.querySelector('.user-info__job').textContent = result.about;
       })
       .catch(err => {
         console.log(err);
@@ -94,14 +92,14 @@ class Api {
   }
 
   editUserInfo(name, about, e) {
-    e.target.textContent = 'Загрузка...';
+    e.target.elements.submit.textContent = 'Загрузка...';
     fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
-        name: name,
-        about: about,
-      })
+        name,
+        about,
+      }),
     })
       .then(res => {
         if (res.ok) {
@@ -110,13 +108,44 @@ class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
       })
       .then(result => {
-        updateUserInfo(result);
+        document.querySelector('.user-info__name').textContent = result.name;
+        document.querySelector('.user-info__job').textContent = result.about;
       })
       .catch(err => {
         console.log(err);
       })
       .finally(() => {
-        e.target.textContent = 'Сохранить';
+        e.target.elements.submit.textContent = 'Сохранить';
+        popupContainer.render(e);
+      });
+  }
+
+  editUserAvatar(link, e) {
+    e.target.elements.submit.textContent = 'Загрузка...';
+    fetch(`${this.baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({
+        avatar: link,
+      }),
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
       })
+      .then(result => {
+        document.querySelector(
+          '.user-info__photo',
+        ).style.backgroundImage = `url(${result.avatar})`;
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => {
+        e.target.elements.submit.textContent = 'Сохранить';
+        popupContainer.render(e);
+      });
   }
 }
