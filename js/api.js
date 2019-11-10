@@ -26,6 +26,7 @@ class Api {
   }
 
   addCard(name, link, e) {
+    e.target.elements.submit.classList.add('popup__button_edit');
     e.target.elements.submit.textContent = 'Загрузка...';
     fetch(`${this.baseUrl}/cards`, {
       method: 'POST',
@@ -48,6 +49,7 @@ class Api {
         console.log(err);
       })
       .finally(() => {
+        e.target.elements.submit.classList.remove('popup__button_edit');
         e.target.elements.submit.textContent = '+';
         popupContainer.render(e);
       });
@@ -63,6 +65,44 @@ class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  likeCard(cardId, e) {
+    fetch(`${this.baseUrl}/cards/like/${cardId}`, {
+      method: 'PUT',
+      headers: this.headers,
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(result => {
+        e.target.nextElementSibling.textContent = result.likes.length;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  deleteLikeCard(cardId, e) {
+    fetch(`${this.baseUrl}/cards/like/${cardId}`, {
+      method: 'DELETE',
+      headers: this.headers,
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(result => {
+        e.target.nextElementSibling.textContent = result.likes.length;
       })
       .catch(err => {
         console.log(err);

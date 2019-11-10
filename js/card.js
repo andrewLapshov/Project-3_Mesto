@@ -4,6 +4,7 @@ class Card {
     this.cardId = '';
     this.cardElement = this.create(result, isMyCard);
     this.remove = this.remove.bind(this);
+    this.like = this.like.bind(this);
 
     this.cardElement
       .querySelector('.place-card__like-icon')
@@ -11,8 +12,12 @@ class Card {
   }
 
   like(e) {
-    if (e.target.classList.contains('place-card__like-icon')) {
+    if (e.target.classList.contains('place-card__like-icon_liked')) {
       e.target.classList.toggle('place-card__like-icon_liked');
+      api.deleteLikeCard(this.cardId, e);
+    } else if (e.target.classList.contains('place-card__like-icon')) {
+      e.target.classList.toggle('place-card__like-icon_liked');
+      api.likeCard(this.cardId, e);
     }
   }
 
@@ -44,8 +49,17 @@ class Card {
     const cardName = document.createElement('h3');
     cardName.classList.add('place-card__name');
 
+    const likeContainer = document.createElement('div');
+    likeContainer.classList.add('place-card__like-container');
+
     const likeButton = document.createElement('button');
     likeButton.classList.add('place-card__like-icon');
+    const myIdCheck = result.likes.some(i => {
+      return i._id === 'a4469f107fd1710abffb5622';
+    });
+    if (myIdCheck) {
+      likeButton.classList.add('place-card__like-icon_liked');
+    }
 
     const likesCounter = document.createElement('span');
     likesCounter.classList.add('place-card__like-counter');
@@ -60,8 +74,9 @@ class Card {
     cardContainer.appendChild(cardImage);
     cardContainer.appendChild(cardDescription);
     cardDescription.appendChild(cardName);
-    cardDescription.appendChild(likeButton);
-    cardDescription.appendChild(likesCounter);
+    likeContainer.appendChild(likeButton);
+    likeContainer.appendChild(likesCounter);
+    cardDescription.appendChild(likeContainer);
 
     cardImage.style.backgroundImage = `url(${result.link})`;
     cardName.textContent = result.name;

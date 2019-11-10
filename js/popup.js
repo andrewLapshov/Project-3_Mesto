@@ -73,14 +73,14 @@ class Popup {
 
     if (e.target.name === 'edit') {
       api.editUserInfo(this.usernameInput.value, this.jobInput.value, e);
-    } else if (e.target.name === 'new') {
+    } else if (e.target.name === 'avatar') {
+      api.editUserAvatar(document.forms.avatar.elements.link.value, e);
+    } else {
       api.addCard(
         newCardForm.elements.name.value,
         newCardForm.elements.link.value,
         e,
       );
-    } else if (e.target.name === 'avatar') {
-      api.editUserAvatar(document.forms.avatar.elements.link.value, e);
     }
   }
 

@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 class Validation {
   constructor() {
     this.validateHandler = this.validateHandler.bind(this);
@@ -6,15 +7,15 @@ class Validation {
   inputHandler(event) {
     if (event.target.validity.valueMissing) {
       event.target.nextElementSibling.textContent =
-        window.validationErrors.noValueError;
+        validationErrors.noValueError;
     } else if (
-      event.target !== document.forms.new.elements.link &&
+      !event.target.classList.contains('popup__input_type_link-url') &&
       (event.target.validity.tooLong || event.target.validity.tooShort)
     ) {
       event.target.nextElementSibling.textContent =
         window.validationErrors.rangeError;
     } else if (
-      event.target === document.forms.new.elements.link &&
+      event.target.classList.contains('popup__input_type_link-url') &&
       event.target.validity.typeMismatch
     ) {
       event.target.nextElementSibling.textContent =
