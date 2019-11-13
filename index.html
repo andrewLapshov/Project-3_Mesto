@@ -17,8 +17,8 @@
         <div class="user-info">
           <div class="user-info__photo"></div>
           <div class="user-info__data">
-            <h1 class="user-info__name">Jaques Causteau</h1>
-            <p class="user-info__job">Sailor, Researcher</p>
+            <h1 class="user-info__name"></h1>
+            <p class="user-info__job"></p>
             <button class="button user-info__edit">Edit</button>
           </div>
           <button class="button user-info__button">+</button>
@@ -46,7 +46,7 @@
             <input
               type="text"
               name="job"
-              class="popup__input popup__input_type_link-url"
+              class="popup__input popup__input_type_name"
               placeholder="О себе"
               required
               minlength="2"
@@ -60,6 +60,7 @@
             >
               Сохранить
             </button>
+            <span class="popup__error popup__error_type_submit"></span>
           </form>
         </div>
 
@@ -95,6 +96,33 @@
             >
               +
             </button>
+            <span class="popup__error popup__error_type_submit"></span>
+          </form>
+        </div>
+
+        <div
+          class="popup__content popup__content_type_form popup__content_avatar"
+        >
+          <img src="./images/close.svg" alt="" class="popup__close" />
+          <h3 class="popup__title">Обновить аватар</h3>
+          <form class="popup__form" name="avatar" novalidate>
+            <input
+              type="url"
+              name="link"
+              class="popup__input popup__input_type_link-url"
+              placeholder="Ссылка на аватар"
+              required
+            />
+            <span class="popup__error popup__error_type_link-url"></span>
+            <button
+              type
+              name="submit"
+              class="button popup__button popup__button_edit popup__button_disabled"
+              disabled
+            >
+              Сохранить
+            </button>
+            <span class="popup__error popup__error_type_submit"></span>
           </form>
         </div>
 
@@ -109,8 +137,33 @@
       </div>
     </div>
 
+    <template class="error-template">
+      <div class="error-template__container">
+        <img class="error-template__pic" src="./images/error.png" />
+        <p class="error-template__text">
+          :( Что-то пошло не так... Проверьте подключение к Интернету и обновите
+          страницу.
+        </p>
+      </div>
+    </template>
+
+    <template class="place-card-template">
+      <div class="place-card">
+        <div class="place-card__image">
+          <button class="place-card__delete-icon"></button>
+        </div>
+        <div class="place-card__description">
+          <h3 class="place-card__name"></h3>
+          <div class="place-card__like-container">
+            <button class="place-card__like-icon"></button>
+            <span class="place-card__like-counter"></span>
+          </div>
+        </div>
+      </div>
+    </template>
+
     <script src="js/api.js"></script>
-    <script src="js/initialCards.js"></script>
+    <script src="js/userinfo.js"></script>
     <script src="js/popup.js"></script>
     <script src="js/validation.js"></script>
     <script src="js/card.js"></script>

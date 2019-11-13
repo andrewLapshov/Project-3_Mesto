@@ -1,5 +1,5 @@
 /* eslint-disable func-names */
-(function() {
+(function () {
   const rootContainer = document.querySelector('.root');
   const popup = document.querySelector('.popup');
 
@@ -14,13 +14,19 @@
       'Content-Type': 'application/json',
     },
   });
-
   const popupContainer = new Popup(popup);
+  const userInfo = new UserInfo();
   const validate = new Validation();
 
   window.api = api;
   window.cardList = cardList;
   window.validate = validate;
+  window.popupContainer = popupContainer;
+  window.userInfo = userInfo;
+  window.connectError = 'Ошибка :( Попробуйте еще раз';
+
+  cardList.render();
+  userInfo.getUserInfo();
 
   rootContainer.addEventListener(
     'click',

@@ -1,19 +1,41 @@
 class CardList {
-  constructor(container, arr) {
+  constructor(container) {
     this.container = container;
-    this.arr = arr;
-    // this.render();
+    this.render = this.render.bind(this);
   }
 
-  addCard(name, link) {
-    const { cardElement } = new Card(name, link);
-    this.container.appendChild(cardElement);
+  addCard(name, link, e) {
+    e.target.elements.submit.classList.add('popup__button_edit');
+    e.target.lastElementChild.textContent = '';
+    e.target.elements.submit.textContent = 'Загрузка...';
+
+    api
+      .addCard(name, link)
+      .then(result => {
+        const { cardElement } = new Card(result, true);
+        this.container.appendChild(cardElement);
+        popupContainer.render(e);
+      })
+      .catch(() => {
+        e.target.lastElementChild.textContent = connectError;
+      })
+      .finally(() => {
+        e.target.elements.submit.classList.remove('popup__button_edit');
+        e.target.elements.submit.textContent = '+';
+      });
   }
 
   render() {
-    this.arr.forEach(item => {
-      const { cardElement } = new Card(item.name, item.link);
-      this.container.appendChild(cardElement);
-    });
+    api
+      .getInitialCards()
+      .then(result => {
+        result.forEach(item => {
+          const { cardElement } = new Card(item, false);
+          this.container.appendChild(cardElement);
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 }

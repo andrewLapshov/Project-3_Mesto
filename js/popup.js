@@ -4,9 +4,7 @@ class Popup {
     this.edit = document.querySelector('.popup__content_edit');
     this.newCard = document.querySelector('.popup__content_new-card');
     this.image = document.querySelector('.popup__content_type_image');
-
-    this.infoName = document.querySelector('.user-info__name');
-    this.infoJob = document.querySelector('.user-info__job');
+    this.avatar = document.querySelector('.popup__content_avatar');
 
     this.usernameInput = document.forms.edit.elements.username;
     this.jobInput = document.forms.edit.elements.job;
@@ -23,8 +21,8 @@ class Popup {
       if (e.target.classList.contains('user-info__edit')) {
         this.edit.classList.add('popup__content_is-opened');
 
-        this.usernameInput.value = this.infoName.textContent;
-        this.jobInput.value = this.infoJob.textContent;
+        this.usernameInput.value = userInfo.infoName.textContent;
+        this.jobInput.value = userInfo.infoJob.textContent;
       } else if (e.target.classList.contains('user-info__button')) {
         this.newCard.classList.add('popup__content_is-opened');
       }
@@ -36,6 +34,10 @@ class Popup {
         .querySelector('.popup__image')
         .setAttribute('src', e.target.style.backgroundImage.slice(5, -2));
       this.image.classList.add('popup__content_is-opened');
+    } else if (e.target.classList.contains('user-info__photo')) {
+      this.container.classList.add('popup_is-opened');
+      this.addListeners();
+      this.avatar.classList.add('popup__content_is-opened');
     }
   }
 
@@ -59,6 +61,11 @@ class Popup {
     this.edit.querySelectorAll('.popup__error').forEach(item => {
       item.textContent = '';
     });
+    this.container
+      .querySelectorAll('.popup__error_type_submit')
+      .forEach(item => {
+        item.textContent = '';
+      });
   }
 
   submit(e) {
@@ -66,15 +73,15 @@ class Popup {
     const newCardForm = document.forms.new;
 
     if (e.target.name === 'edit') {
-      this.infoName.textContent = this.usernameInput.value;
-      this.infoJob.textContent = this.jobInput.value;
-      this.render(e);
+      userInfo.editUserInfo(this.usernameInput.value, this.jobInput.value, e);
+    } else if (e.target.name === 'avatar') {
+      userInfo.editUserAvatar(document.forms.avatar.elements.link.value, e);
     } else {
-      api.addCard(
+      cardList.addCard(
         newCardForm.elements.name.value,
         newCardForm.elements.link.value,
+        e,
       );
-      this.render(e);
     }
   }
 
