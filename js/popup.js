@@ -61,9 +61,11 @@ class Popup {
     this.edit.querySelectorAll('.popup__error').forEach(item => {
       item.textContent = '';
     });
-    this.container.querySelectorAll('.popup__error_type_submit').forEach(item => {
-      item.textContent = '';
-    });
+    this.container
+      .querySelectorAll('.popup__error_type_submit')
+      .forEach(item => {
+        item.textContent = '';
+      });
   }
 
   submit(e) {
