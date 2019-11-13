@@ -85,6 +85,11 @@ class Popup {
     }
   }
 
+  submitRender(e) {
+    e.target.lastElementChild.textContent = '';
+    e.target.elements.submit.textContent = 'Загрузка...';
+  }
+
   addListeners() {
     this.container.addEventListener('click', this.close);
     this.container.addEventListener('submit', this.submit);

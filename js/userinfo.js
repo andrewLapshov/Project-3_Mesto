@@ -6,8 +6,7 @@ class UserInfo {
   }
 
   editUserInfo(name, about, e) {
-    e.target.lastElementChild.textContent = '';
-    e.target.elements.submit.textContent = 'Загрузка...';
+    popupContainer.submitRender(e);
 
     api
       .editUserInfo(name, about)
@@ -25,8 +24,7 @@ class UserInfo {
   }
 
   editUserAvatar(link, e) {
-    e.target.lastElementChild.textContent = '';
-    e.target.elements.submit.textContent = 'Загрузка...';
+    popupContainer.submitRender(e);
 
     api
       .editUserAvatar(link)

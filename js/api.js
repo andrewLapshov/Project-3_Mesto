@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 class Api {
   constructor(options) {
     this.baseUrl = options.baseUrl;

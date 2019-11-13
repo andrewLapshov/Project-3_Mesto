@@ -6,13 +6,13 @@ class CardList {
 
   addCard(name, link, e) {
     e.target.elements.submit.classList.add('popup__button_edit');
-    e.target.lastElementChild.textContent = '';
-    e.target.elements.submit.textContent = 'Загрузка...';
+    popupContainer.submitRender(e);
 
     api
       .addCard(name, link)
       .then(result => {
-        const { cardElement } = new Card(result, true);
+        const card = new Card(result, false);
+        const cardElement = card.render();
         this.container.appendChild(cardElement);
         popupContainer.render(e);
       })
@@ -30,7 +30,8 @@ class CardList {
       .getInitialCards()
       .then(result => {
         result.forEach(item => {
-          const { cardElement } = new Card(item, false);
+          const card = new Card(item, false);
+          const cardElement = card.render();
           this.container.appendChild(cardElement);
         });
       })
