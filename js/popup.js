@@ -6,10 +6,6 @@ class Popup {
     this.image = document.querySelector('.popup__content_type_image');
     this.avatar = document.querySelector('.popup__content_avatar');
 
-    this.infoName = document.querySelector('.user-info__name');
-    this.infoJob = document.querySelector('.user-info__job');
-    this.infoAvatar = document.querySelector('.user-info__photo');
-
     this.usernameInput = document.forms.edit.elements.username;
     this.jobInput = document.forms.edit.elements.job;
 
@@ -25,8 +21,8 @@ class Popup {
       if (e.target.classList.contains('user-info__edit')) {
         this.edit.classList.add('popup__content_is-opened');
 
-        this.usernameInput.value = this.infoName.textContent;
-        this.jobInput.value = this.infoJob.textContent;
+        this.usernameInput.value = userInfo.infoName.textContent;
+        this.jobInput.value = userInfo.infoJob.textContent;
       } else if (e.target.classList.contains('user-info__button')) {
         this.newCard.classList.add('popup__content_is-opened');
       }
@@ -65,6 +61,9 @@ class Popup {
     this.edit.querySelectorAll('.popup__error').forEach(item => {
       item.textContent = '';
     });
+    this.container.querySelectorAll('.popup__error_type_submit').forEach(item => {
+      item.textContent = '';
+    });
   }
 
   submit(e) {
@@ -72,11 +71,11 @@ class Popup {
     const newCardForm = document.forms.new;
 
     if (e.target.name === 'edit') {
-      api.editUserInfo(this.usernameInput.value, this.jobInput.value, e);
+      userInfo.editUserInfo(this.usernameInput.value, this.jobInput.value, e);
     } else if (e.target.name === 'avatar') {
-      api.editUserAvatar(document.forms.avatar.elements.link.value, e);
+      userInfo.editUserAvatar(document.forms.avatar.elements.link.value, e);
     } else {
-      api.addCard(
+      cardList.addCard(
         newCardForm.elements.name.value,
         newCardForm.elements.link.value,
         e,

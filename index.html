@@ -60,6 +60,7 @@
             >
               Сохранить
             </button>
+            <span class="popup__error popup__error_type_submit"></span>
           </form>
         </div>
 
@@ -95,6 +96,7 @@
             >
               +
             </button>
+            <span class="popup__error popup__error_type_submit"></span>
           </form>
         </div>
 
@@ -120,6 +122,7 @@
             >
               Сохранить
             </button>
+            <span class="popup__error popup__error_type_submit"></span>
           </form>
         </div>
 
@@ -134,7 +137,33 @@
       </div>
     </div>
 
+    <template class="error-template">
+      <div class="error-template__container">
+        <img class="error-template__pic" src="./images/error.png" />
+        <p class="error-template__text">
+          :( Что-то пошло не так... Проверьте подключение к Интернету и обновите
+          страницу.
+        </p>
+      </div>
+    </template>
+
+    <template class="place-card-template">
+      <div class="place-card">
+        <div class="place-card__image">
+          <button class="place-card__delete-icon"></button>
+        </div>
+        <div class="place-card__description">
+          <h3 class="place-card__name"></h3>
+          <div class="place-card__like-container">
+            <button class="place-card__like-icon"></button>
+            <span class="place-card__like-counter"></span>
+          </div>
+        </div>
+      </div>
+    </template>
+
     <script src="js/api.js"></script>
+    <script src="js/userinfo.js"></script>
     <script src="js/popup.js"></script>
     <script src="js/validation.js"></script>
     <script src="js/card.js"></script>
