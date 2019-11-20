@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 class Validation {
   constructor() {
     this.validateHandler = this.validateHandler.bind(this);

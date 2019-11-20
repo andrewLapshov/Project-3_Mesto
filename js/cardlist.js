@@ -6,7 +6,7 @@ class CardList {
 
   addCard(name, link, e) {
     e.target.elements.submit.classList.add('popup__button_edit');
-    popupContainer.submitRender(e);
+    window.addCardPopup.submitRender(e);
 
     api
       .addCard(name, link)
@@ -14,10 +14,10 @@ class CardList {
         const card = new Card(result, false);
         const cardElement = card.render();
         this.container.appendChild(cardElement);
-        popupContainer.render(e);
+        window.addCardPopup.close();
       })
       .catch(() => {
-        e.target.lastElementChild.textContent = connectError;
+        e.target.lastElementChild.textContent = window.connectError;
       })
       .finally(() => {
         e.target.elements.submit.classList.remove('popup__button_edit');
