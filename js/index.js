@@ -1,12 +1,11 @@
 /* eslint-disable func-names */
-(function () {
-  const rootContainer = document.querySelector('.root');
+(function() {
+  const cardContainer = document.querySelector('.places-list');
   const popup = document.querySelector('.popup');
+  const addCardButton = document.querySelector('.user-info__button');
+  const profileButton = document.querySelector('.user-info__edit');
+  const avatarButton = document.querySelector('.user-info__photo');
 
-  const cardList = new CardList(
-    document.querySelector('.places-list'),
-    window.initialCards,
-  );
   const api = new Api({
     baseUrl: 'http://95.216.175.5/cohort5',
     headers: {
@@ -14,39 +13,31 @@
       'Content-Type': 'application/json',
     },
   });
-  const popupContainer = new Popup(popup);
+
+  const cardList = new CardList(cardContainer);
+  window.cardList = cardList;
+  const addCardPopup = new AddCardPopup(popup);
+  const profilePopup = new ProfilePopup(popup);
+  const avatarPopup = new AvatarPopup(popup);
+  const imgPopup = new ImgPopup(popup);
   const userInfo = new UserInfo();
   const validate = new Validation();
 
   window.api = api;
-  window.cardList = cardList;
+
   window.validate = validate;
-  window.popupContainer = popupContainer;
   window.userInfo = userInfo;
   window.connectError = 'Ошибка :( Попробуйте еще раз';
+  window.addCardPopup = addCardPopup;
+  window.profilePopup = profilePopup;
+  window.avatarPopup = avatarPopup;
+  window.imgPopup = imgPopup;
+
+  addCardButton.addEventListener('click', addCardPopup.open);
+  profileButton.addEventListener('click', profilePopup.open);
+  avatarButton.addEventListener('click', avatarPopup.open);
+  cardContainer.addEventListener('click', imgPopup.open);
 
   cardList.render();
   userInfo.getUserInfo();
-
-  rootContainer.addEventListener(
-    'click',
-    popupContainer.open.bind(popupContainer),
-  );
 })();
-
-/**
- * Здравствуйте. Удивили ))
- * С настренным линтером, с разбивкой файлов и так далее ... круто )
- *
- * можно лучше. Зачем вы делаете глобальным  window.initialCards = initialCards;
- *
- * можно лучше: в классе Card вы вешаете на каждую карточку слушатель , почему не на родителя
- * а потом удаляете. Повешайте на родителя и удалять не придётся слушатель как и вешать
- *
- * можно лучше. Я бы в классе  CardList делал инъекцию класса card. https://habr.com/ru/post/232851/
- *
- * Давно таких хороших работ не видел, вы молодец
- *
- * @koras
- *
- */

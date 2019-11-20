@@ -6,18 +6,18 @@ class CardList {
 
   addCard(name, link, e) {
     e.target.elements.submit.classList.add('popup__button_edit');
-    e.target.lastElementChild.textContent = '';
-    e.target.elements.submit.textContent = 'Загрузка...';
+    window.addCardPopup.submitRender(e);
 
     api
       .addCard(name, link)
       .then(result => {
-        const { cardElement } = new Card(result, true);
+        const card = new Card(result, false);
+        const cardElement = card.render();
         this.container.appendChild(cardElement);
-        popupContainer.render(e);
+        window.addCardPopup.close();
       })
       .catch(() => {
-        e.target.lastElementChild.textContent = connectError;
+        e.target.lastElementChild.textContent = window.connectError;
       })
       .finally(() => {
         e.target.elements.submit.classList.remove('popup__button_edit');
@@ -30,7 +30,8 @@ class CardList {
       .getInitialCards()
       .then(result => {
         result.forEach(item => {
-          const { cardElement } = new Card(item, false);
+          const card = new Card(item, false);
+          const cardElement = card.render();
           this.container.appendChild(cardElement);
         });
       })

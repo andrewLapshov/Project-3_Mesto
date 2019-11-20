@@ -6,18 +6,17 @@ class UserInfo {
   }
 
   editUserInfo(name, about, e) {
-    e.target.lastElementChild.textContent = '';
-    e.target.elements.submit.textContent = 'Загрузка...';
+    window.profilePopup.submitRender(e);
 
     api
       .editUserInfo(name, about)
       .then(result => {
         this.infoName.textContent = result.name;
         this.infoJob.textContent = result.about;
-        popupContainer.render(e);
+        window.profilePopup.close();
       })
       .catch(() => {
-        e.target.lastElementChild.textContent = connectError;
+        e.target.lastElementChild.textContent = window.connectError;
       })
       .finally(() => {
         e.target.elements.submit.textContent = 'Сохранить';
@@ -25,17 +24,16 @@ class UserInfo {
   }
 
   editUserAvatar(link, e) {
-    e.target.lastElementChild.textContent = '';
-    e.target.elements.submit.textContent = 'Загрузка...';
+    window.profilePopup.submitRender(e);
 
     api
       .editUserAvatar(link)
       .then(result => {
         this.infoAvatar.style.backgroundImage = `url(${result.avatar})`;
-        popupContainer.render(e);
+        window.profilePopup.close();
       })
       .catch(() => {
-        e.target.lastElementChild.textContent = connectError;
+        e.target.lastElementChild.textContent = window.connectError;
       })
       .finally(() => {
         e.target.elements.submit.textContent = 'Сохранить';
