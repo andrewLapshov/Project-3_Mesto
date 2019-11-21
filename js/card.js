@@ -1,4 +1,4 @@
-class Card {
+export default class Card {
   constructor(result, isMyCard) {
     this.result = result;
     this.isMyCard = isMyCard;
@@ -39,7 +39,7 @@ class Card {
       api
         .deleteLikeCard(this.cardId)
         .then(result => {
-          e.target.classList.toggle('place-card__like-icon_liked');
+          e.target.classList.remove('place-card__like-icon_liked');
           e.target.nextElementSibling.textContent = result.likes.length;
         })
         .catch(() => {
@@ -49,7 +49,7 @@ class Card {
       api
         .likeCard(this.cardId)
         .then(result => {
-          e.target.classList.toggle('place-card__like-icon_liked');
+          e.target.classList.add('place-card__like-icon_liked');
           e.target.nextElementSibling.textContent = result.likes.length;
         })
         .catch(() => {

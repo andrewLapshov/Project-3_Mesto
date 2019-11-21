@@ -1,22 +1,24 @@
-class UserInfo {
+export default class UserInfo {
   constructor() {
+    this.profilePopup = window.profilePopup;
+    this.connectError = window.connectError;
     this.infoName = document.querySelector('.user-info__name');
     this.infoJob = document.querySelector('.user-info__job');
     this.infoAvatar = document.querySelector('.user-info__photo');
   }
 
   editUserInfo(name, about, e) {
-    popupContainer.submitRender(e);
+    this.profilePopup.submitRender(e);
 
     api
       .editUserInfo(name, about)
       .then(result => {
         this.infoName.textContent = result.name;
         this.infoJob.textContent = result.about;
-        popupContainer.render(e);
+        this.profilePopup.close();
       })
       .catch(() => {
-        e.target.lastElementChild.textContent = connectError;
+        e.target.lastElementChild.textContent = this.connectError;
       })
       .finally(() => {
         e.target.elements.submit.textContent = 'Сохранить';
@@ -24,16 +26,16 @@ class UserInfo {
   }
 
   editUserAvatar(link, e) {
-    popupContainer.submitRender(e);
+    this.profilePopup.submitRender(e);
 
     api
       .editUserAvatar(link)
       .then(result => {
         this.infoAvatar.style.backgroundImage = `url(${result.avatar})`;
-        popupContainer.render(e);
+        this.profilePopup.close();
       })
       .catch(() => {
-        e.target.lastElementChild.textContent = connectError;
+        e.target.lastElementChild.textContent = this.connectError;
       })
       .finally(() => {
         e.target.elements.submit.textContent = 'Сохранить';
@@ -49,10 +51,10 @@ class UserInfo {
         this.infoJob.textContent = result.about;
       })
       .catch(() => {
-        const newError = document
-          .querySelector('.error-template')
-          .content.cloneNode(true);
-        document.querySelector('.profile').appendChild(newError);
+        // const newError = document
+        //   .querySelector('.error-template')
+        //   .content.cloneNode(true);
+        // document.querySelector('.profile').appendChild(newError);
       });
   }
 }

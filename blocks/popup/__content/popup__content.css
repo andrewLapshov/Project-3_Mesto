@@ -1,5 +1,5 @@
 .popup__content {
-  display: none;
+  display: block;
   position: relative;
 }
 
