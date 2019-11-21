@@ -1,3 +1,5 @@
+import Popup from './popup.js';
+
 export default class ImgPopup extends Popup {
   constructor(container) {
     super(container);

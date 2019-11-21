@@ -1,7 +1,10 @@
+import Popup from './popup.js';
+import { cardList } from '../index.js';
+
 export default class AddCardPopup extends Popup {
   constructor(container) {
     super(container);
-    this.cardList = window.cardList;
+    this.cardList = cardList;
 
     this.open = this.open.bind(this);
     this.submit = this.submit.bind(this);

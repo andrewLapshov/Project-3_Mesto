@@ -1,21 +1,24 @@
+import { api, profilePopup } from './index.js';
+
 export default class UserInfo {
   constructor() {
-    this.profilePopup = window.profilePopup;
-    this.connectError = window.connectError;
+    // this.profilePopup = profilePopup;
+    this.api = api;
+    this.connectError = 'Ошибка :( Попробуйте еще раз';
     this.infoName = document.querySelector('.user-info__name');
     this.infoJob = document.querySelector('.user-info__job');
     this.infoAvatar = document.querySelector('.user-info__photo');
   }
 
   editUserInfo(name, about, e) {
-    this.profilePopup.submitRender(e);
+    profilePopup.submitRender(e);
 
-    api
+    this.api
       .editUserInfo(name, about)
       .then(result => {
         this.infoName.textContent = result.name;
         this.infoJob.textContent = result.about;
-        this.profilePopup.close();
+        profilePopup.close();
       })
       .catch(() => {
         e.target.lastElementChild.textContent = this.connectError;
@@ -26,13 +29,13 @@ export default class UserInfo {
   }
 
   editUserAvatar(link, e) {
-    this.profilePopup.submitRender(e);
+    profilePopup.submitRender(e);
 
-    api
+    this.api
       .editUserAvatar(link)
       .then(result => {
         this.infoAvatar.style.backgroundImage = `url(${result.avatar})`;
-        this.profilePopup.close();
+        profilePopup.close();
       })
       .catch(() => {
         e.target.lastElementChild.textContent = this.connectError;
@@ -43,7 +46,7 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    api
+    this.api
       .getUserInfo()
       .then(result => {
         this.infoAvatar.style.backgroundImage = `url(${result.avatar})`;
@@ -51,10 +54,10 @@ export default class UserInfo {
         this.infoJob.textContent = result.about;
       })
       .catch(() => {
-        // const newError = document
-        //   .querySelector('.error-template')
-        //   .content.cloneNode(true);
-        // document.querySelector('.profile').appendChild(newError);
+        const newError = document
+          .querySelector('.error-template')
+          .content.cloneNode(true);
+        document.querySelector('.profile').appendChild(newError);
       });
   }
 }

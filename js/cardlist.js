@@ -1,22 +1,25 @@
+import { api, addCardPopup } from './index.js';
+import Card from './card.js';
+
 export default class CardList {
   constructor(container) {
-    this.addCardPopup = window.addCardPopup;
-    this.connectError = window.connectError;
+    this.api = api;
+    this.connectError = 'Ошибка :( Попробуйте еще раз';
     this.container = container;
     this.render = this.render.bind(this);
   }
 
   addCard(name, link, e) {
     e.target.elements.submit.classList.add('popup__button_edit');
-    this.addCardPopup.submitRender(e);
+    addCardPopup.submitRender(e);
 
-    api
+    this.api
       .addCard(name, link)
       .then(result => {
         const card = new Card(result, false);
         const cardElement = card.render();
         this.container.appendChild(cardElement);
-        this.addCardPopup.close();
+        addCardPopup.close();
       })
       .catch(() => {
         e.target.lastElementChild.textContent = this.connectError;
@@ -28,7 +31,7 @@ export default class CardList {
   }
 
   render() {
-    api
+    this.api
       .getInitialCards()
       .then(result => {
         result.forEach(item => {

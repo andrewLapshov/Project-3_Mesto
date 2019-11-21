@@ -1,7 +1,10 @@
+import Popup from './popup.js';
+import { userInfo } from '../index.js';
+
 export default class AvatarPopup extends Popup {
   constructor(container) {
     super(container);
-    this.userInfo = window.userInfo;
+    this.userInfo = userInfo;
 
     this.open = this.open.bind(this);
     this.submit = this.submit.bind(this);
