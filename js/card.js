@@ -1,4 +1,4 @@
-import { Api } from './index.js';
+import { api } from './index.js';
 
 export default class Card {
   constructor(result, isMyCard) {

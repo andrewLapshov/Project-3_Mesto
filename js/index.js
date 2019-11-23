@@ -1,9 +1,9 @@
-import Api from './api.js';
+import Api from './Api.js';
 import CardList from './CardList.js';
 import UserInfo from './UserInfo.js';
 import Validation from './Validation.js';
 import AddCardPopup from './popup/AddCardPopup.js';
-import ProfilePopup from './popup/ProfilePopup.js/index.js.js';
+import ProfilePopup from './popup/ProfilePopup.js';
 import AvatarPopup from './popup/AvatarPopup.js';
 import ImgPopup from './popup/ImgPopup.js';
 
