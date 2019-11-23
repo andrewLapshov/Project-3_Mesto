@@ -11,11 +11,7 @@ export default class CardList {
 
   addCard(name, link, e) {
     e.target.elements.submit.classList.add('popup__button_edit');
-<<<<<<< HEAD
     addCardPopup.submitRender(e);
-=======
-    window.addCardPopup.submitRender(e);
->>>>>>> 9e307d4feb524d03e4da08ae34a4364bba273b58
 
     this.api
       .addCard(name, link)
@@ -23,17 +19,10 @@ export default class CardList {
         const card = new Card(result, false);
         const cardElement = card.render();
         this.container.appendChild(cardElement);
-<<<<<<< HEAD
         addCardPopup.close();
       })
       .catch(() => {
         e.target.lastElementChild.textContent = this.connectError;
-=======
-        window.addCardPopup.close();
-      })
-      .catch(() => {
-        e.target.lastElementChild.textContent = window.connectError;
->>>>>>> 9e307d4feb524d03e4da08ae34a4364bba273b58
       })
       .finally(() => {
         e.target.elements.submit.classList.remove('popup__button_edit');
