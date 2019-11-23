@@ -1,9 +1,12 @@
-class Card {
+import { api } from './index.js';
+
+export default class Card {
   constructor(result, isMyCard) {
     this.result = result;
     this.isMyCard = isMyCard;
     this.cardId = '';
     this.cardElement = null;
+    this.api = api;
 
     this.remove = this.remove.bind(this);
     this.like = this.like.bind(this);
@@ -36,20 +39,20 @@ class Card {
 
   like(e) {
     if (e.target.classList.contains('place-card__like-icon_liked')) {
-      api
+      this.api
         .deleteLikeCard(this.cardId)
         .then(result => {
-          e.target.classList.toggle('place-card__like-icon_liked');
+          e.target.classList.remove('place-card__like-icon_liked');
           e.target.nextElementSibling.textContent = result.likes.length;
         })
         .catch(() => {
           alert(connectError);
         });
     } else if (e.target.classList.contains('place-card__like-icon')) {
-      api
+      this.api
         .likeCard(this.cardId)
         .then(result => {
-          e.target.classList.toggle('place-card__like-icon_liked');
+          e.target.classList.add('place-card__like-icon_liked');
           e.target.nextElementSibling.textContent = result.likes.length;
         })
         .catch(() => {
@@ -61,7 +64,7 @@ class Card {
   remove(e) {
     if (e.target.classList.contains('place-card__delete-icon')) {
       if (window.confirm('Вы действительно хотите удалить эту карточку?')) {
-        api
+        this.api
           .deleteCard(this.cardId)
           .then(() => {
             this.cardElement.remove();

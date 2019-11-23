@@ -1,25 +1,24 @@
-/* eslint-disable class-methods-use-this */
-class Validation {
+import { validationErrors } from './validationErrors.js';
+
+export default class Validation {
   constructor() {
+    this.validationErrors = validationErrors;
     this.validateHandler = this.validateHandler.bind(this);
   }
 
   inputHandler(event) {
     if (event.target.validity.valueMissing) {
-      event.target.nextElementSibling.textContent =
-        validationErrors.noValueError;
+      event.target.nextElementSibling.textContent = this.validationErrors.noValueError;
     } else if (
       !event.target.classList.contains('popup__input_type_link-url') &&
       (event.target.validity.tooLong || event.target.validity.tooShort)
     ) {
-      event.target.nextElementSibling.textContent =
-        window.validationErrors.rangeError;
+      event.target.nextElementSibling.textContent = this.validationErrors.rangeError;
     } else if (
       event.target.classList.contains('popup__input_type_link-url') &&
       event.target.validity.typeMismatch
     ) {
-      event.target.nextElementSibling.textContent =
-        window.validationErrors.linkError;
+      event.target.nextElementSibling.textContent = this.validationErrors.linkError;
     } else {
       event.target.nextElementSibling.textContent = '';
     }

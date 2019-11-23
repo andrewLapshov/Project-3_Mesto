@@ -1,23 +1,28 @@
-class CardList {
+import { api, addCardPopup } from './index.js';
+import Card from './Card.js';
+
+export default class CardList {
   constructor(container) {
+    this.api = api;
+    this.connectError = 'Ошибка :( Попробуйте еще раз';
     this.container = container;
     this.render = this.render.bind(this);
   }
 
   addCard(name, link, e) {
     e.target.elements.submit.classList.add('popup__button_edit');
-    popupContainer.submitRender(e);
+    addCardPopup.submitRender(e);
 
-    api
+    this.api
       .addCard(name, link)
       .then(result => {
         const card = new Card(result, false);
         const cardElement = card.render();
         this.container.appendChild(cardElement);
-        popupContainer.render(e);
+        addCardPopup.close();
       })
       .catch(() => {
-        e.target.lastElementChild.textContent = connectError;
+        e.target.lastElementChild.textContent = this.connectError;
       })
       .finally(() => {
         e.target.elements.submit.classList.remove('popup__button_edit');
@@ -26,7 +31,7 @@ class CardList {
   }
 
   render() {
-    api
+    this.api
       .getInitialCards()
       .then(result => {
         result.forEach(item => {
