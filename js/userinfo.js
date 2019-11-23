@@ -2,7 +2,6 @@ import { api, profilePopup } from './index.js';
 
 export default class UserInfo {
   constructor() {
-    // this.profilePopup = profilePopup;
     this.api = api;
     this.connectError = 'Ошибка :( Попробуйте еще раз';
     this.infoName = document.querySelector('.user-info__name');

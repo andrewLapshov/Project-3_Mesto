@@ -1,4 +1,4 @@
-import Popup from './popup.js';
+import Popup from './Popup.js';
 import { cardList } from '../index.js';
 
 export default class AddCardPopup extends Popup {
