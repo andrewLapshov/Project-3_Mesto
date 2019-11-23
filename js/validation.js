@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 import { validationErrors } from './validationErrors.js';
 
 export default class Validation {
+=======
+class Validation {
+>>>>>>> 9e307d4feb524d03e4da08ae34a4364bba273b58
   constructor() {
     this.validationErrors = validationErrors;
     this.validateHandler = this.validateHandler.bind(this);

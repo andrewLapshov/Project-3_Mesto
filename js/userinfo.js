@@ -10,17 +10,28 @@ export default class UserInfo {
   }
 
   editUserInfo(name, about, e) {
+<<<<<<< HEAD
     profilePopup.submitRender(e);
+=======
+    window.profilePopup.submitRender(e);
+>>>>>>> 9e307d4feb524d03e4da08ae34a4364bba273b58
 
     this.api
       .editUserInfo(name, about)
       .then(result => {
         this.infoName.textContent = result.name;
         this.infoJob.textContent = result.about;
+<<<<<<< HEAD
         profilePopup.close();
       })
       .catch(() => {
         e.target.lastElementChild.textContent = this.connectError;
+=======
+        window.profilePopup.close();
+      })
+      .catch(() => {
+        e.target.lastElementChild.textContent = window.connectError;
+>>>>>>> 9e307d4feb524d03e4da08ae34a4364bba273b58
       })
       .finally(() => {
         e.target.elements.submit.textContent = 'Сохранить';
@@ -28,16 +39,27 @@ export default class UserInfo {
   }
 
   editUserAvatar(link, e) {
+<<<<<<< HEAD
     profilePopup.submitRender(e);
+=======
+    window.profilePopup.submitRender(e);
+>>>>>>> 9e307d4feb524d03e4da08ae34a4364bba273b58
 
     this.api
       .editUserAvatar(link)
       .then(result => {
         this.infoAvatar.style.backgroundImage = `url(${result.avatar})`;
+<<<<<<< HEAD
         profilePopup.close();
       })
       .catch(() => {
         e.target.lastElementChild.textContent = this.connectError;
+=======
+        window.profilePopup.close();
+      })
+      .catch(() => {
+        e.target.lastElementChild.textContent = window.connectError;
+>>>>>>> 9e307d4feb524d03e4da08ae34a4364bba273b58
       })
       .finally(() => {
         e.target.elements.submit.textContent = 'Сохранить';
