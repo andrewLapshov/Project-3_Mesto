@@ -14,7 +14,7 @@ const profileButton = document.querySelector('.user-info__edit');
 const avatarButton = document.querySelector('.user-info__photo');
 
 export const api = new Api({
-  baseUrl: 'http://95.216.175.5/cohort5',
+  baseUrl: 'https://praktikum.tk/cohort5',
   headers: {
     authorization: '7c52e275-a3fe-469a-b1d5-5405c9a5e586',
     'Content-Type': 'application/json',
