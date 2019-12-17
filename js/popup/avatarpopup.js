@@ -1,4 +1,4 @@
-import Popup from './Popup.js';
+import Popup from './popup.js';
 import { userInfo } from '../index.js';
 
 export default class AvatarPopup extends Popup {

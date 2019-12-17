@@ -1,5 +1,5 @@
 import { api, addCardPopup } from './index.js';
-import Card from './Card.js';
+import Card from './card.js';
 
 export default class CardList {
   constructor(container) {
