@@ -1,4 +1,4 @@
-import { validationErrors } from './validationErrors.js';
+import { validationErrors } from './validationerrors.js';
 
 export default class Validation {
   constructor() {
