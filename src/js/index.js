@@ -42,10 +42,13 @@ cardContainer.addEventListener('click', imgPopup.open);
 api
   .getAppInfo()
   .then(([cardsInfo, userData]) => {
+    const regex = /((\.jpg)|(\.png)|(\.jpeg))$/i;
     cardsInfo.forEach(item => {
-      const card = new Card(item, false);
-      const cardElement = card.render();
-      cardContainer.appendChild(cardElement);
+      if (regex.test(item.link)) {
+        const card = new Card(item, false);
+        const cardElement = card.render();
+        cardContainer.appendChild(cardElement);
+      }
     });
     userInfo.getUserInfo(userData);
   })
