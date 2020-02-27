@@ -42,7 +42,7 @@ cardContainer.addEventListener('click', imgPopup.open);
 api
   .getAppInfo()
   .then(([cardsInfo, userData]) => {
-    const regex = /((\.jpg)|(\.png)|(\.jpeg))$/i;
+    const regex = /(^(https)).+(((\.jpg)|(\.png)|(\.jpeg))$)/i;
     cardsInfo.forEach(item => {
       if (regex.test(item.link)) {
         const card = new Card(item, false);
